@@ -62,10 +62,22 @@ describe('Voting', () => {
       [new anchor.BN(1).toArrayLike(Buffer, "le", 8), Buffer.from("Crunchy")],
       votingAddress,
     );
+    const crunchyCandidate = await votingProgram.account.candidate.fetch(crunchyAddress);
+    console.log(crunchyCandidate);
+    expect(crunchyCandidate.candidateVote.toNumber()).toEqual(0);
+
+    const [smoothAddress] = PublicKey.findProgramAddressSync(
+      [new anchor.BN(1).toArrayLike(Buffer, "le", 8), Buffer.from("Smooth")],
+      votingAddress,
+    );
+    const smoothCandidate = await votingProgram.account.candidate.fetch(smoothAddress);
+    console.log(smoothCandidate);
+    expect(smoothCandidate.candidateVote.toNumber()).toEqual(0);
   });
 
-  it("vote", async () => {
-    
+  it("vote", async() => {
+    await votingProgram.methods
+    .vote
   });
 
 });
